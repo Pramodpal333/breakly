@@ -36,7 +36,7 @@ class TimerCircle extends StatelessWidget {
           height: 280,
           child: CircularProgressIndicator(
             value: 1.0,
-            strokeWidth: 20,
+            strokeWidth: 40,
             color: theme.colorScheme.surfaceContainerHighest,
           ),
         ),
@@ -46,7 +46,7 @@ class TimerCircle extends StatelessWidget {
           height: 280,
           child: CircularProgressIndicator(
             value: progress,
-            strokeWidth: 20,
+            strokeWidth: 40,
             strokeCap: StrokeCap.round,
             color: activeColor,
             backgroundColor: Colors.transparent,

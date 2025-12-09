@@ -18,19 +18,54 @@ class DurationSlider extends StatelessWidget {
 
     return Column(
       children: [
+        // Enhanced Label
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.timer, size: 20, color: theme.colorScheme.primary),
+            const SizedBox(width: 8),
+            Text(
+              "Focus Duration",
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
         Text(
-          "Focus Duration: ${durationMinutes.toInt()} min",
-          style: theme.textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.w500,
+          "${durationMinutes.toInt()} min",
+          style: theme.textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: theme.colorScheme.onSurface,
           ),
         ),
+        const SizedBox(height: 16),
+
+        // Custom Premium Slider
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
             activeTrackColor: theme.colorScheme.primary,
             inactiveTrackColor: theme.colorScheme.surfaceContainerHighest,
+            trackShape: const RoundedRectSliderTrackShape(),
+            trackHeight: 12.0, // Chunky track
+            thumbShape: const RoundSliderThumbShape(
+              enabledThumbRadius: 16.0,
+              pressedElevation: 8.0,
+            ),
             thumbColor: theme.colorScheme.primary,
             overlayColor: theme.colorScheme.primary.withValues(alpha: 0.2),
-            trackHeight: 6.0,
+            overlayShape: const RoundSliderOverlayShape(overlayRadius: 32.0),
+            tickMarkShape: const RoundSliderTickMarkShape(),
+            activeTickMarkColor: Colors.transparent,
+            inactiveTickMarkColor: Colors.transparent,
+            valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+            valueIndicatorColor: theme.colorScheme.primary,
+            valueIndicatorTextStyle: TextStyle(
+              color: theme.colorScheme.onPrimary,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           child: Slider(
             value: durationMinutes,

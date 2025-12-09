@@ -1,6 +1,6 @@
-import 'package:breakly/core/services/preferences_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import '../../../core/di/injection_container.dart';
 import '../../../core/services/audio_service.dart';
 import '../bloc/timer_bloc.dart';
@@ -77,7 +77,8 @@ class HomeView extends StatelessWidget {
                       ),
                     )
                   else ...[
-                    const Spacer(),
+                    // const Spacer(),
+                    Gap(70),
                     // Main Timer Display
                     TimerCircle(
                       totalSeconds: (state.focusDurationMinutes * 60).toInt(),
@@ -153,7 +154,6 @@ class HomeView extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Settings coming in v2!")),
             );
