@@ -8,25 +8,25 @@ final class TimerState extends Equatable {
     this.duration = 60,
     this.status = TimerStatus.initial,
     this.focusDurationMinutes = 50,
-    this.currentActivity,
+    this.activities = const [],
   });
 
   final int duration;
   final TimerStatus status;
   final double focusDurationMinutes;
-  final MoveActivity? currentActivity;
+  final List<MoveActivity> activities;
 
   TimerState copyWith({
     int? duration,
     TimerStatus? status,
     double? focusDurationMinutes,
-    MoveActivity? currentActivity,
+    List<MoveActivity>? activities,
   }) {
     return TimerState(
       duration: duration ?? this.duration,
       status: status ?? this.status,
       focusDurationMinutes: focusDurationMinutes ?? this.focusDurationMinutes,
-      currentActivity: currentActivity ?? this.currentActivity,
+      activities: activities ?? this.activities,
     );
   }
 
@@ -35,6 +35,6 @@ final class TimerState extends Equatable {
     duration,
     status,
     focusDurationMinutes,
-    currentActivity,
+    activities,
   ];
 }

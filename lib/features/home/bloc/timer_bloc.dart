@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import '../../../../core/utils/ticker.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart'; // For Icons
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
-  static const int _breakDuration = 300; // 5 minutes
 
   StreamSubscription<int>? _tickerSubscription;
 
@@ -57,7 +55,15 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   TimerBloc({required Ticker ticker})
     : _ticker = ticker,
-      super(const TimerState(duration: 50 * 60, status: TimerStatus.initial)) {
+      super(
+        TimerState(
+          duration: 50 * 60,
+          status: TimerStatus.initial,
+          activities:
+              const [], // Will be populated when needed or we can pass default
+          // Actually, let's just make it available always or empty initially
+        ),
+      ) {
     on<TimerStarted>(_onStarted);
     on<TimerPaused>(_onPaused);
     on<TimerResumed>(_onResumed);
@@ -102,7 +108,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
         duration: (state.focusDurationMinutes * 60).toInt(),
         status: TimerStatus.initial,
         focusDurationMinutes: state.focusDurationMinutes,
-        currentActivity: null,
+        activities: _activities,
       ),
     );
   }
@@ -132,31 +138,12 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _handleTimerComplete(Emitter<TimerState> emit) {
     HapticFeedback.heavyImpact();
-    if (state.currentActivity != null) {
-      // Break just finished, back to work
-      emit(
-        TimerState(
-          duration: (state.focusDurationMinutes * 60).toInt(),
-          status: TimerStatus.initial,
-          focusDurationMinutes: state.focusDurationMinutes,
-          currentActivity: null,
-        ),
-      );
-    } else {
-      // Work just finished, start break
-      final activity = _activities[Random().nextInt(_activities.length)];
-      emit(
-        state.copyWith(
-          status: TimerStatus.breakTime,
-          duration: _breakDuration,
-          currentActivity: activity,
-        ),
-      );
 
-      // Auto-start break timer
-      _tickerSubscription = _ticker
-          .tick(ticks: _breakDuration)
-          .listen((duration) => add(TimerTicked(duration: duration)));
-    }
+    // Work just finished, enter break mode manually
+    // We do NOT start a timer here anymore.
+    emit(
+      state.copyWith(status: TimerStatus.breakTime, activities: _activities),
+    );
+    // No ticker subscription for break
   }
 }

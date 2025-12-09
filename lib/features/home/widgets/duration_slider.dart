@@ -34,9 +34,9 @@ class DurationSlider extends StatelessWidget {
           ),
           child: Slider(
             value: durationMinutes,
-            min: 5,
+            min: 1,
             max: 90,
-            divisions: 17, // (90-5)/5 = 17 steps
+            divisions: 89,
             label: "${durationMinutes.toInt()} min",
             onChanged: isEnabled ? onChanged : null,
           ),

@@ -5,7 +5,7 @@ import '../bloc/timer_bloc.dart';
 import '../bloc/timer_event.dart';
 import '../bloc/timer_state.dart';
 import '../widgets/timer_circle.dart';
-import '../widgets/activity_card.dart';
+import '../widgets/exercise_swiper.dart';
 import '../widgets/duration_slider.dart';
 import '../widgets/control_buttons.dart';
 
@@ -37,43 +37,51 @@ class HomeView extends StatelessWidget {
         return Scaffold(
           backgroundColor: theme.colorScheme.surface,
           body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-                vertical: 16.0,
-              ),
-              child: Column(
-                children: [
-                  // Header
-                  _buildHeader(theme, context, state),
-                  const Spacer(),
+            child: Column(
+              children: [
+                // Header
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0,
+                    vertical: 16.0,
+                  ),
+                  child: _buildHeader(theme, context, state),
+                ),
 
+                if (isBreak)
+                  Expanded(
+                    child: ExerciseSwiper(
+                      activities: state.activities,
+                      onStartFocus: () {
+                        context.read<TimerBloc>().add(const TimerReset());
+                        context.read<TimerBloc>().add(
+                          TimerStarted(
+                            duration: (state.focusDurationMinutes * 60).toInt(),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                else ...[
+                  const Spacer(),
                   // Main Timer Display
                   TimerCircle(
-                    totalSeconds: isBreak
-                        ? 300
-                        : (state.focusDurationMinutes * 60)
-                              .toInt(), // Approximation for total logic
+                    totalSeconds: (state.focusDurationMinutes * 60).toInt(),
                     remainingSeconds: state.duration,
                     activeColor: primaryColor,
-                    statusLabel: isBreak ? "RESTING" : "WORKING",
+                    statusLabel: "WORKING",
                   ),
 
                   const Spacer(),
 
-                  // Activity Card (Only shows during break)
-                  if (state.currentActivity != null)
-                    ActivityCard(activity: state.currentActivity!),
-
-                  if (!isBreak)
-                    DurationSlider(
-                      durationMinutes: state.focusDurationMinutes,
-                      onChanged: state.status == TimerStatus.initial
-                          ? (val) => context.read<TimerBloc>().add(
-                              FocusDurationChanged(durationMinutes: val),
-                            )
-                          : null,
-                    ),
+                  DurationSlider(
+                    durationMinutes: state.focusDurationMinutes,
+                    onChanged: state.status == TimerStatus.initial
+                        ? (val) => context.read<TimerBloc>().add(
+                            FocusDurationChanged(durationMinutes: val),
+                          )
+                        : null,
+                  ),
 
                   const SizedBox(height: 30),
 
@@ -94,9 +102,9 @@ class HomeView extends StatelessWidget {
                     showReset: state.status != TimerStatus.initial,
                     primaryColor: primaryColor,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                 ],
-              ),
+              ],
             ),
           ),
         );
