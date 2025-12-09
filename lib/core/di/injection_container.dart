@@ -16,7 +16,7 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton(() => PreferencesService(sharedPreferences));
 
   // BLoC
-  sl.registerFactory(() => TimerBloc(ticker: sl()));
+  sl.registerFactory(() => TimerBloc(ticker: sl(), preferencesService: sl()));
 
   // External
   sl.registerLazySingleton(() => const Ticker());

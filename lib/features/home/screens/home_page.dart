@@ -1,3 +1,4 @@
+import 'package:breakly/core/services/preferences_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/di/injection_container.dart';
@@ -152,6 +153,7 @@ class HomeView extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
+            
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Settings coming in v2!")),
             );

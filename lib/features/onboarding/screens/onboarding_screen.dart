@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/di/injection_container.dart';
-import '../../../../core/services/preferences_service.dart';
-import '../../home/screens/home_page.dart';
+import 'preference_screen.dart';
 import '../widgets/onboarding_page_content.dart';
 
 /// Screen that manages the onboarding flow using a [PageView].
@@ -36,13 +34,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _completeOnboarding() async {
-    await sl<PreferencesService>().completeOnboarding();
+    // DO NOT mark as complete yet. Pass to preference screen.
+    // If user skips, we might want to go to Preference screen too or set defaults.
+    // Let's assume SKIP also goes to Preference Screen for now to capture preference.
+
     if (!mounted) return;
 
-    // Navigate to Home and remove Onboarding from stack
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const PreferenceScreen()),
+    );
   }
 
   @override

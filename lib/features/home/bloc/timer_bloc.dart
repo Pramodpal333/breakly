@@ -1,27 +1,32 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
+import '../../../../core/services/preferences_service.dart';
 import '../../../../core/utils/ticker.dart';
 import '../data/activity_data.dart';
+import '../models/move_activity.dart';
 import 'timer_event.dart';
 import 'timer_state.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
+  final PreferencesService _preferencesService;
 
   StreamSubscription<int>? _tickerSubscription;
 
-  TimerBloc({required Ticker ticker})
-    : _ticker = ticker,
-      super(
-        TimerState(
-          duration: 50 * 60,
-          status: TimerStatus.initial,
-          activities:
-              const [], // Will be populated when needed or we can pass default
-          // Actually, let's just make it available always or empty initially
-        ),
-      ) {
+  TimerBloc({
+    required Ticker ticker,
+    required PreferencesService preferencesService,
+  }) : _ticker = ticker,
+       _preferencesService = preferencesService,
+       super(
+         TimerState(
+           duration: 50 * 60,
+           status: TimerStatus.initial,
+           activities:
+               const [], // Initial state has no activities, will be populated on break
+         ),
+       ) {
     on<TimerStarted>(_onStarted);
     on<TimerPaused>(_onPaused);
     on<TimerResumed>(_onResumed);
@@ -99,10 +104,24 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
     // Work just finished, enter break mode manually
     // We do NOT start a timer here anymore.
+
+    // Filter activities based on preference
+    final location = _preferencesService.getLocationPreference();
+    List<MoveActivity> filteredActivities;
+
+    if (location == 'office') {
+      // Only show stealth activities
+      filteredActivities = defaultActivities.where((a) => a.isStealth).toList();
+    } else {
+      // Show all activites (Home or Anywhere)
+      // We could randomize or shuffle here if desired, but defaultActivities allows sequential or swiper randomness handles it
+      filteredActivities = List.from(defaultActivities);
+    }
+
     emit(
       state.copyWith(
         status: TimerStatus.breakTime,
-        activities: defaultActivities,
+        activities: filteredActivities,
       ),
     );
     // No ticker subscription for break

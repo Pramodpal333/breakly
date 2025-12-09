@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// onboarding status.
 class PreferencesService {
   static const String _onboardingCompletedKey = 'onboarding_completed';
+  static const String _locationPreferenceKey = 'location_preference';
+
   final SharedPreferences _prefs;
 
   PreferencesService(this._prefs);
@@ -17,5 +19,21 @@ class PreferencesService {
   /// Marks the onboarding flow as completed.
   Future<void> completeOnboarding() async {
     await _prefs.setBool(_onboardingCompletedKey, true);
+  }
+
+  /// Gets the stored location preference. Defaults to 'anywhere' if not set.
+  String getLocationPreference() {
+    return _prefs.getString(_locationPreferenceKey) ?? 'anywhere';
+  }
+
+  /// Sets the location preference.
+  /// Values: 'office', 'home', 'anywhere'
+  Future<void> setLocationPreference(String value) async {
+    await _prefs.setString(_locationPreferenceKey, value);
+  }
+
+  /// Logs out the user by clearing all preferences.
+  Future<void> logout() async {
+    await _prefs.clear();
   }
 }
