@@ -1,3 +1,4 @@
+import 'package:breakly/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../models/move_activity.dart';
@@ -67,13 +68,15 @@ class ExerciseSwiper extends StatelessWidget {
     // List of darker, muted calm colors for better eye comfort
     final List<Color> colors = [
       const Color(0xFF4A6fa5), // Muted Blue
-      const Color(0xFF6B9080), // Deep Sage
-      const Color(0xFFA4C3B2), // Sage Green
-      const Color(0xFF5E6472), // Slate Grey
-      const Color(0xFF8D6E63), // Brownish Grey
-      const Color(0xFF795548), // Cocoa
-      const Color(0xFF607D8B), // Blue Grey
-      const Color(0xFF546E7A), // Teal Grey
+      const Color.fromARGB(255, 46, 85, 68), // Deep Sage
+      const Color.fromARGB(255, 0, 84, 38), // Sage Green
+      const Color.fromARGB(255, 24, 30, 45), // Slate Grey
+      const Color.fromARGB(255, 73, 42, 31), // Brownish Grey
+      const Color.fromARGB(255, 194, 52, 0), // Cocoa
+      const Color.fromARGB(255, 14, 34, 45), // Blue Grey
+      const Color.fromARGB(255, 0, 57, 83), // Teal Grey
+      const Color.fromARGB(255, 52, 24, 90), // Teal Grey
+      const Color.fromARGB(255, 73, 36, 36), // Teal Grey
     ];
     return colors[index % colors.length];
   }
@@ -141,7 +144,7 @@ class ExerciseSwiper extends StatelessWidget {
               padding: const EdgeInsets.only(top: 24),
               child: Chip(
                 label: const Text("STEALTH MODE"),
-                backgroundColor: Colors.white.withValues(alpha: 0.4),
+                backgroundColor: AppColors.primary,
                 labelStyle: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
