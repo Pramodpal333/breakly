@@ -34,7 +34,8 @@ class ExerciseSwiper extends StatelessWidget {
             cardBuilder:
                 (context, index, percentThresholdX, percentThresholdY) {
                   final activity = activities[index];
-                  return _buildCard(activity, theme);
+                  final color = _getRandomCalmColor(index);
+                  return _buildCard(activity, theme, color);
                 },
           ),
         ),
@@ -62,14 +63,38 @@ class ExerciseSwiper extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(MoveActivity activity, ThemeData theme) {
+  Color _getRandomCalmColor(int index) {
+    // List of darker, muted calm colors for better eye comfort
+    final List<Color> colors = [
+      const Color(0xFF4A6fa5), // Muted Blue
+      const Color(0xFF6B9080), // Deep Sage
+      const Color(0xFFA4C3B2), // Sage Green
+      const Color(0xFF5E6472), // Slate Grey
+      const Color(0xFF8D6E63), // Brownish Grey
+      const Color(0xFF795548), // Cocoa
+      const Color(0xFF607D8B), // Blue Grey
+      const Color(0xFF546E7A), // Teal Grey
+    ];
+    return colors[index % colors.length];
+  }
+
+  Widget _buildCard(
+    MoveActivity activity,
+    ThemeData theme,
+    Color backgroundColor,
+  ) {
+    // Content is always white on these darker backgrounds
+    const Color contentColor = Colors.white;
+
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.secondaryContainer,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
+            color: Colors.black.withValues(
+              alpha: 0.2,
+            ), // Slightly darker shadow
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -81,14 +106,10 @@ class ExerciseSwiper extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surface.withValues(alpha: 0.5),
+              color: Colors.white.withValues(alpha: 0.15), // Subtle overlay
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              activity.icon,
-              size: 64,
-              color: theme.colorScheme.onSecondaryContainer,
-            ),
+            child: Icon(activity.icon, size: 64, color: contentColor),
           ),
           const SizedBox(height: 32),
           Padding(
@@ -97,7 +118,7 @@ class ExerciseSwiper extends StatelessWidget {
               activity.title,
               textAlign: TextAlign.center,
               style: theme.textTheme.headlineMedium?.copyWith(
-                color: theme.colorScheme.onSecondaryContainer,
+                color: contentColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -108,10 +129,10 @@ class ExerciseSwiper extends StatelessWidget {
             child: Text(
               activity.description,
               textAlign: TextAlign.center,
+              // Increased font size by 2px as requested (16 + 2 = 18)
               style: theme.textTheme.bodyLarge?.copyWith(
-                color: theme.colorScheme.onSecondaryContainer.withValues(
-                  alpha: 0.8,
-                ),
+                color: contentColor.withValues(alpha: 0.8),
+                fontSize: (theme.textTheme.bodyLarge?.fontSize ?? 16) + 2,
               ),
             ),
           ),
@@ -120,13 +141,11 @@ class ExerciseSwiper extends StatelessWidget {
               padding: const EdgeInsets.only(top: 24),
               child: Chip(
                 label: const Text("STEALTH MODE"),
-                backgroundColor: theme.colorScheme.surface.withValues(
-                  alpha: 0.5,
-                ),
+                backgroundColor: Colors.white.withValues(alpha: 0.4),
                 labelStyle: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.onSecondaryContainer,
+                  color: contentColor,
                 ),
               ),
             ),

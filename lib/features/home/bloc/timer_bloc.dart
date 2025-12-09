@@ -2,56 +2,14 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import '../../../../core/utils/ticker.dart';
-import '../models/move_activity.dart';
+import '../data/activity_data.dart';
 import 'timer_event.dart';
 import 'timer_state.dart';
-import 'package:flutter/material.dart'; // For Icons
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
 
   StreamSubscription<int>? _tickerSubscription;
-
-  // Need to define activities here or inject a repository
-  final List<MoveActivity> _activities = [
-    MoveActivity(
-      title: "Seated Spinal Twist",
-      description:
-          "Turn your torso to the left, hold chair back. Repeat right side.",
-      icon: Icons.accessibility_new,
-      isStealth: true,
-    ),
-    MoveActivity(
-      title: "Neck Release",
-      description: "Gently tilt your ear to your shoulder. Hold 10s each side.",
-      icon: Icons.face,
-      isStealth: true,
-    ),
-    MoveActivity(
-      title: "The Invisible Chair",
-      description: "Hover just above your seat for 15 seconds. Feel the burn.",
-      icon: Icons.event_seat,
-      isStealth: false,
-    ),
-    MoveActivity(
-      title: "Desk Pushups",
-      description: "Place hands on desk edge, lean in, push back. Do 10 reps.",
-      icon: Icons.fitness_center,
-      isStealth: false,
-    ),
-    MoveActivity(
-      title: "Eye Reset",
-      description: "Look at something 20 feet away for 20 seconds.",
-      icon: Icons.remove_red_eye,
-      isStealth: true,
-    ),
-    MoveActivity(
-      title: "Ankle Rolls",
-      description: "Lift feet slightly. Rotate ankles clockwise, then counter.",
-      icon: Icons.refresh,
-      isStealth: true,
-    ),
-  ];
 
   TimerBloc({required Ticker ticker})
     : _ticker = ticker,
@@ -108,7 +66,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
         duration: (state.focusDurationMinutes * 60).toInt(),
         status: TimerStatus.initial,
         focusDurationMinutes: state.focusDurationMinutes,
-        activities: _activities,
+        activities: defaultActivities,
       ),
     );
   }
@@ -142,7 +100,10 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     // Work just finished, enter break mode manually
     // We do NOT start a timer here anymore.
     emit(
-      state.copyWith(status: TimerStatus.breakTime, activities: _activities),
+      state.copyWith(
+        status: TimerStatus.breakTime,
+        activities: defaultActivities,
+      ),
     );
     // No ticker subscription for break
   }
