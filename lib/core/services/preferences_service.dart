@@ -36,4 +36,16 @@ class PreferencesService {
   Future<void> logout() async {
     await _prefs.clear();
   }
+
+  static const String _lastFocusDurationKey = 'last_focus_duration';
+
+  /// Gets the last saved focus duration in minutes. Defaults to 30.
+  int getLastFocusDuration() {
+    return _prefs.getInt(_lastFocusDurationKey) ?? 30;
+  }
+
+  /// Saves the focus duration preference in minutes.
+  Future<void> saveLastFocusDuration(int minutes) async {
+    await _prefs.setInt(_lastFocusDurationKey, minutes);
+  }
 }

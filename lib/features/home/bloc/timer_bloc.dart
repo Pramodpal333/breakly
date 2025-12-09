@@ -21,8 +21,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
        _preferencesService = preferencesService,
        super(
          TimerState(
-           duration: 50 * 60,
+           duration: preferencesService.getLastFocusDuration() * 60,
            status: TimerStatus.initial,
+           focusDurationMinutes: preferencesService
+               .getLastFocusDuration()
+               .toDouble(),
            activities:
                const [], // Initial state has no activities, will be populated on break
          ),
@@ -43,6 +46,12 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onStarted(TimerStarted event, Emitter<TimerState> emit) {
     emit(state.copyWith(status: TimerStatus.running));
+
+    // Save the duration whenever the timer starts
+    _preferencesService.saveLastFocusDuration(
+      state.focusDurationMinutes.toInt(),
+    );
+
     _tickerSubscription?.cancel();
     _tickerSubscription = _ticker
         .tick(ticks: event.duration)
