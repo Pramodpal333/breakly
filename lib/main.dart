@@ -32,7 +32,7 @@ class BreaklyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Breakly',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+      theme: AppTheme.darkTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
       home: const HomePage(),
