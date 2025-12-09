@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/move_activity.dart';
-
 final List<MoveActivity> defaultActivities = [
   MoveActivity(
     title: "Seated Spinal Twist",
@@ -37,6 +36,261 @@ final List<MoveActivity> defaultActivities = [
     title: "Ankle Rolls",
     description: "Lift feet slightly. Rotate ankles clockwise, then counter.",
     icon: Icons.refresh,
+    isStealth: true,
+  ),
+
+  // --- New activities ---
+
+  MoveActivity(
+    title: "Shoulder Roll",
+    description: "Lift shoulders up, roll back and down. Repeat 10 times.",
+    icon: Icons.rotate_left,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Wrist Flex",
+    description: "Extend arm, pull fingers back gently. Hold 10 seconds.",
+    icon: Icons.back_hand,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Desk Calf Raises",
+    description: "Lift heels off the floor, hold 2s at top. Do 15 reps.",
+    icon: Icons.directions_walk,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Posture Reset",
+    description: "Straighten spine, relax shoulders, take one deep breath.",
+    icon: Icons.self_improvement,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Seated Leg Lift",
+    description: "Lift one leg parallel to floor, hold 5s. Switch legs.",
+    icon: Icons.accessibility,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Finger Stretch",
+    description: "Spread fingers wide, hold 5 seconds. Repeat 3 times.",
+    icon: Icons.pan_tool,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Chest Opener",
+    description: "Clasp hands behind you, lift slightly, open chest.",
+    icon: Icons.airline_seat_legroom_normal,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Forward Fold",
+    description: "From seated, fold forward reaching toward feet. Hold 10s.",
+    icon: Icons.south,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Mini Squats",
+    description: "Stand and lower halfway into a squat. Do 10 controlled reps.",
+    icon: Icons.accessibility_new,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Toe Taps",
+    description: "Tap toes up and down quickly for 20 seconds.",
+    icon: Icons.directions_run,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Side Stretch",
+    description: "Reach one arm overhead and lean sideways. Hold 10s each side.",
+    icon: Icons.swap_horiz,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Deep Breathing",
+    description: "Inhale 4s, hold 2s, exhale 6s. Repeat 5 cycles.",
+    icon: Icons.favorite,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Hip Opener",
+    description: "Cross ankle over knee, lean forward gently. Hold 10s.",
+    icon: Icons.chair_alt,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Wall Lean",
+    description: "Lean into a wall with arms out, stretch chest 15 seconds.",
+    icon: Icons.wallpaper,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Back Extension",
+    description: "Hands on lower back, gently arch and look up. Hold 5s.",
+    icon: Icons.accessibility_outlined,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "March in Place",
+    description: "Stand and march in place, lifting knees for 30 seconds.",
+    icon: Icons.emoji_people,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Seated Cat-Cow",
+    description: "Arch and round your back slowly while seated. Repeat 8 times.",
+    icon: Icons.stairs,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Standing Hamstring Stretch",
+    description: "Place heel forward, hinge at hips, feel stretch. Hold 15s.",
+    icon: Icons.straighten,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Desk Plank",
+    description: "Hands on desk, step back into plank. Hold 20 seconds.",
+    icon: Icons.fitness_center,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Shoulder Blade Squeeze",
+    description: "Squeeze shoulder blades together, hold 5s. Repeat 8 times.",
+    icon: Icons.keyboard_double_arrow_up,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Seated Figure-8 Ankles",
+    description: "Draw figure eights with your toes in the air. 20 seconds.",
+    icon: Icons.refresh,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Standing Quad Stretch",
+    description: "Hold ankle behind you, bring heel to glute. Hold 15s.",
+    icon: Icons.directions_bike,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Neck Rotation",
+    description: "Slowly turn head left and right. 5 times each side.",
+    icon: Icons.rotate_left,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Palm Stretch",
+    description: "Press palms together at chest level, hold 10 seconds.",
+    icon: Icons.pan_tool,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Seated Side Bend",
+    description: "One hand on seat, other overhead, lean sideways. Hold 10s.",
+    icon: Icons.swap_horiz,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Chair Hamstring Curl",
+    description: "Heel to floor, drag back as if digging. Hold 3s, repeat 10x.",
+    icon: Icons.accessibility,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Heel-To-Toe Rock",
+    description: "Rock from heels to toes while standing. 20 slow reps.",
+    icon: Icons.directions_walk,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Eye Squeeze",
+    description: "Close eyes tightly for 3s, then relax. Repeat 5 times.",
+    icon: Icons.remove_red_eye,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Hand Shakeout",
+    description: "Let arms hang and gently shake hands for 15 seconds.",
+    icon: Icons.back_hand,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Seated Hip Marches",
+    description: "Lift one knee at a time while seated. 20 alternating reps.",
+    icon: Icons.emoji_people,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Wall Angel",
+    description: "Back to wall, slide arms up and down slowly 10 times.",
+    icon: Icons.accessibility_new,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Standing Side Steps",
+    description: "Step side to side gently for 30 seconds.",
+    icon: Icons.directions_run,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Calf Pump",
+    description: "Push through toes like pressing a pedal. 20 repetitions.",
+    icon: Icons.directions_walk,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Thoracic Opener",
+    description: "Hands behind head, gently open elbows wide. Repeat 8 times.",
+    icon: Icons.accessibility_outlined,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Seated Wrist Circles",
+    description: "Make slow circles with both wrists for 20 seconds.",
+    icon: Icons.watch,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Diaphragmatic Breathing",
+    description: "Hand on belly, breathe so it rises. 8 slow breaths.",
+    icon: Icons.spa,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Reach for the Ceiling",
+    description: "Interlace fingers, reach up tall, hold 10 seconds.",
+    icon: Icons.keyboard_arrow_up,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Glute Squeeze",
+    description: "Squeeze glutes while seated, hold 5s. Repeat 10 times.",
+    icon: Icons.chair,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Screen Distance Check",
+    description: "Sit back, adjust screen so it’s arm’s length away.",
+    icon: Icons.monitor,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Hydration Break",
+    description: "Take 5 slow sips of water and breathe between each.",
+    icon: Icons.local_drink,
+    isStealth: true,
+  ),
+  MoveActivity(
+    title: "Micro Walk",
+    description: "Stand up and walk around your space for 1 minute.",
+    icon: Icons.directions_walk,
+    isStealth: false,
+  ),
+  MoveActivity(
+    title: "Mini Reset",
+    description: "Close eyes, relax jaw and shoulders for 20 seconds.",
+    icon: Icons.snooze,
     isStealth: true,
   ),
 ];
