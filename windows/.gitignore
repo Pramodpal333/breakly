@@ -15,3 +15,12 @@ x86/
 *.[Cc]ache
 # but keep track of directories ending in .cache
 !*.[Cc]ache/
+
+# User-specific files
+*.lock
+.DS_Store
+Thumbs.db
+
+# Secrets
+secrets.json
+pubspec.lock

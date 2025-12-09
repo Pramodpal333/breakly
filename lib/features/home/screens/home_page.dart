@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/di/injection_container.dart';
+import '../../../core/services/audio_service.dart';
 import '../bloc/timer_bloc.dart';
 import '../bloc/timer_event.dart';
 import '../bloc/timer_state.dart';
@@ -26,89 +27,102 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TimerBloc, TimerState>(
-      builder: (context, state) {
-        final theme = Theme.of(context);
-        final isBreak = state.status == TimerStatus.breakTime;
-        final primaryColor = isBreak
-            ? theme.colorScheme.secondary
-            : theme.colorScheme.primary;
+    final theme = Theme.of(context);
 
-        return Scaffold(
-          backgroundColor: theme.colorScheme.surface,
-          body: SafeArea(
-            child: Column(
-              children: [
-                // Header
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24.0,
-                    vertical: 16.0,
-                  ),
-                  child: _buildHeader(theme, context, state),
-                ),
-
-                if (isBreak)
-                  Expanded(
-                    child: ExerciseSwiper(
-                      activities: state.activities,
-                      onStartFocus: () {
-                        context.read<TimerBloc>().add(const TimerReset());
-                        context.read<TimerBloc>().add(
-                          TimerStarted(
-                            duration: (state.focusDurationMinutes * 60).toInt(),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                else ...[
-                  const Spacer(),
-                  // Main Timer Display
-                  TimerCircle(
-                    totalSeconds: (state.focusDurationMinutes * 60).toInt(),
-                    remainingSeconds: state.duration,
-                    activeColor: primaryColor,
-                    statusLabel: "WORKING",
-                  ),
-
-                  const Spacer(),
-
-                  DurationSlider(
-                    durationMinutes: state.focusDurationMinutes,
-                    onChanged: state.status == TimerStatus.initial
-                        ? (val) => context.read<TimerBloc>().add(
-                            FocusDurationChanged(durationMinutes: val),
-                          )
-                        : null,
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  // Controls
-                  ControlButtons(
-                    isRunning: state.status == TimerStatus.running,
-                    onPlayPause: () {
-                      if (state.status == TimerStatus.running) {
-                        context.read<TimerBloc>().add(const TimerPaused());
-                      } else {
-                        context.read<TimerBloc>().add(
-                          TimerStarted(duration: state.duration),
-                        );
-                      }
-                    },
-                    onReset: () =>
-                        context.read<TimerBloc>().add(const TimerReset()),
-                    showReset: state.status != TimerStatus.initial,
-                    primaryColor: primaryColor,
-                  ),
-                  const SizedBox(height: 40),
-                ],
-              ],
-            ),
-          ),
-        );
+    return BlocListener<TimerBloc, TimerState>(
+      listenWhen: (previous, current) =>
+          previous.status != TimerStatus.breakTime &&
+          current.status == TimerStatus.breakTime,
+      listener: (context, state) {
+        // Play ringtone when break starts
+        sl<AudioService>().playRingtone();
       },
+      child: BlocBuilder<TimerBloc, TimerState>(
+        builder: (context, state) {
+          final isBreak = state.status == TimerStatus.breakTime;
+          final primaryColor = isBreak
+              ? theme.colorScheme.secondary
+              : theme.colorScheme.primary;
+
+          return Scaffold(
+            backgroundColor: theme.colorScheme.surface,
+            body: SafeArea(
+              child: Column(
+                children: [
+                  // Header
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                      vertical: 16.0,
+                    ),
+                    child: _buildHeader(theme, context, state),
+                  ),
+
+                  if (isBreak)
+                    Expanded(
+                      child: ExerciseSwiper(
+                        activities: state.activities,
+                        onStartFocus: () {
+                          // Stop ringtone when user starts focus
+                          sl<AudioService>().stop();
+                          context.read<TimerBloc>().add(const TimerReset());
+                          context.read<TimerBloc>().add(
+                            TimerStarted(
+                              duration: (state.focusDurationMinutes * 60)
+                                  .toInt(),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  else ...[
+                    const Spacer(),
+                    // Main Timer Display
+                    TimerCircle(
+                      totalSeconds: (state.focusDurationMinutes * 60).toInt(),
+                      remainingSeconds: state.duration,
+                      activeColor: primaryColor,
+                      statusLabel: "WORKING",
+                    ),
+
+                    const Spacer(),
+
+                    DurationSlider(
+                      durationMinutes: state.focusDurationMinutes,
+                      onChanged: state.status == TimerStatus.initial
+                          ? (val) => context.read<TimerBloc>().add(
+                              FocusDurationChanged(durationMinutes: val),
+                            )
+                          : null,
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    // Controls
+                    ControlButtons(
+                      isRunning: state.status == TimerStatus.running,
+                      onPlayPause: () {
+                        if (state.status == TimerStatus.running) {
+                          context.read<TimerBloc>().add(const TimerPaused());
+                        } else {
+                          context.read<TimerBloc>().add(
+                            TimerStarted(duration: state.duration),
+                          );
+                        }
+                      },
+                      onReset: () =>
+                          context.read<TimerBloc>().add(const TimerReset()),
+                      showReset: state.status != TimerStatus.initial,
+                      primaryColor: primaryColor,
+                    ),
+                    const SizedBox(height: 40),
+                  ],
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
