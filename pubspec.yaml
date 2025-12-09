@@ -37,6 +37,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   equatable: ^2.0.7
   get_it: ^9.2.0
+  flutter_card_swiper: ^7.2.0
 
 dev_dependencies:
   flutter_test:
