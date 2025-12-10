@@ -16,6 +16,8 @@ class AppColors {
   static const Color black = Colors.black;
 
   static final Color primary = HexColor('#1E1E1E');
+  static final Color error = HexColor('#b53333');
+  static final Color error2 = HexColor('#541b1b');
 }
 
 class HexColor extends Color {

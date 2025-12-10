@@ -1,3 +1,5 @@
+import 'package:breakly/core/theme/app_colors.dart';
+import 'package:breakly/features/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -45,7 +47,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurfaceVariant.withOpacity(0.4),
+              color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -141,6 +143,30 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
               ],
             ),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24).copyWith(bottom: 40),
+            child: _buildOptionsContainer(
+              context,
+              backgroundColor: AppColors.error2,
+              borderColor: AppColors.error,
+              children: [
+                _buildNavigationOption(
+                  context,
+                  title: 'Logout',
+                  icon: Icons.logout,
+                  onTap: () {
+                    sl<PreferencesService>().logout();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OnboardingScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -163,12 +189,20 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
   Widget _buildOptionsContainer(
     BuildContext context, {
     required List<Widget> children,
+    Color? borderColor,
+    Color? backgroundColor,
   }) {
     return SmoothContainer(
-      color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.3),
+      color:
+          backgroundColor ??
+          Theme.of(
+            context,
+          ).colorScheme.secondaryContainer.withValues(alpha: 0.3),
       borderRadius: BorderRadius.circular(20),
       side: BorderSide(
-        color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.5),
+        color:
+            borderColor ??
+            Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5),
       ),
       child: Column(children: children),
     );
@@ -180,7 +214,9 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
       thickness: 1,
       indent: 56,
       endIndent: 16,
-      color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.5),
+      color: Theme.of(
+        context,
+      ).colorScheme.outlineVariant.withValues(alpha: 0.5),
     );
   }
 
@@ -199,7 +235,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: theme.colorScheme.primary, size: 20),
@@ -240,7 +276,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.1),
+                color: theme.colorScheme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: theme.colorScheme.primary, size: 20),
