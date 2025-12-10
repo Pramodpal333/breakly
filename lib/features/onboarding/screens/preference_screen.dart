@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/smooth_container.dart';
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/services/preferences_service.dart';
 import '../../home/screens/home_page.dart';
@@ -121,12 +122,13 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
 
               const Spacer(),
 
-              FilledButton(
+              SmoothButton(
                 onPressed: _saveAndContinue,
-                style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                borderRadius: BorderRadius.circular(16),
+                child: Center(
+                  child: Text(widget.isEditMode ? "SAVE" : "SAVE & CONTINUE"),
                 ),
-                child: Text(widget.isEditMode ? "SAVE" : "SAVE & CONTINUE"),
               ),
               const SizedBox(height: 20),
             ],
@@ -157,13 +159,11 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
           _selectedLocation = value;
         });
       },
-      child: Container(
+      child: SmoothContainer(
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          border: Border.all(color: borderColor, width: isSelected ? 2 : 1),
-          borderRadius: BorderRadius.circular(16),
-        ),
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: borderColor, width: isSelected ? 2 : 1),
         child: Row(
           children: [
             Container(

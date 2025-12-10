@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/smooth_container.dart';
 import 'preference_screen.dart';
 import '../widgets/onboarding_page_content.dart';
 
@@ -118,37 +119,42 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Row(
                     children: List.generate(
                       _numPages,
-                      (index) => Container(
+                      (index) => SmoothContainer(
                         margin: const EdgeInsets.symmetric(horizontal: 4),
                         width: index == _currentPage ? 24 : 8,
                         height: 8,
-                        decoration: BoxDecoration(
-                          color: index == _currentPage
-                              ? theme.colorScheme.primary
-                              : theme.colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
+                        color: index == _currentPage
+                            ? theme.colorScheme.primary
+                            : theme.colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(4),
                       ),
                     ),
                   ),
 
                   // Next / Get Started Button
-                  FilledButton.icon(
+                  SmoothButton(
                     onPressed: _onNext,
-                    style: FilledButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
                     ),
-                    icon: Icon(
-                      _currentPage == _numPages - 1
-                          ? Icons.check
-                          : Icons.arrow_forward,
-                    ),
-                    label: Text(
-                      _currentPage == _numPages - 1 ? "GET STARTED" : "NEXT",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    borderRadius: BorderRadius.circular(16),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _currentPage == _numPages - 1
+                              ? Icons.check
+                              : Icons.arrow_forward,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          _currentPage == _numPages - 1
+                              ? "GET STARTED"
+                              : "NEXT",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                 ],

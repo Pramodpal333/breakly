@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import '../../../../core/widgets/smooth_container.dart';
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/services/preferences_service.dart';
 import '../../onboarding/screens/preference_screen.dart';
@@ -32,12 +33,10 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
+    return SmoothContainer(
       height: MediaQuery.of(context).size.height * 0.9,
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      ),
+      color: theme.colorScheme.surface,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       child: Column(
         children: [
           const Gap(12),
@@ -165,15 +164,11 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
     BuildContext context, {
     required List<Widget> children,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(
-          context,
-        ).colorScheme.secondaryContainer.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.5),
-        ),
+    return SmoothContainer(
+      color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.3),
+      borderRadius: BorderRadius.circular(20),
+      side: BorderSide(
+        color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.5),
       ),
       child: Column(children: children),
     );

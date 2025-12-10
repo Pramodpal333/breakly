@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/smooth_container.dart';
 
 class ControlButtons extends StatelessWidget {
   final bool isRunning;
@@ -33,6 +34,7 @@ class ControlButtons extends StatelessWidget {
               backgroundColor: theme.colorScheme.surfaceContainerHighest,
               foregroundColor: theme.colorScheme.onSurface,
               onPressed: onReset,
+              shape: smoothShape(borderRadius: BorderRadius.circular(16)),
               child: const Icon(Icons.stop),
             ),
           ),
@@ -47,6 +49,7 @@ class ControlButtons extends StatelessWidget {
             backgroundColor: primaryColor,
             foregroundColor: theme.colorScheme.onPrimary,
             onPressed: onPlayPause,
+            shape: smoothShape(borderRadius: BorderRadius.circular(30)),
             child: Icon(isRunning ? Icons.pause : Icons.play_arrow, size: 36),
           ),
         ),

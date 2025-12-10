@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/smooth_container.dart';
 import '../models/move_activity.dart';
 
 class ActivityCard extends StatelessWidget {
@@ -10,20 +11,18 @@ class ActivityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
+    return SmoothContainer(
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+      color: theme.colorScheme.secondaryContainer,
+      borderRadius: BorderRadius.circular(20),
+      shadows: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.05),
+          blurRadius: 10,
+          offset: const Offset(0, 4),
+        ),
+      ],
       child: Row(
         children: [
           Container(

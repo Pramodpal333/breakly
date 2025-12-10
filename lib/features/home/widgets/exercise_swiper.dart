@@ -1,5 +1,6 @@
 import 'package:breakly/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/smooth_container.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../models/move_activity.dart';
 
@@ -45,17 +46,22 @@ class ExerciseSwiper extends StatelessWidget {
         SizedBox(
           width: 200,
           height: 60,
-          child: FilledButton.icon(
+          child: SmoothButton(
             onPressed: onStartFocus,
-            style: FilledButton.styleFrom(
-              backgroundColor: theme.colorScheme.primary,
-              foregroundColor: theme.colorScheme.onPrimary,
-              elevation: 4,
-            ),
-            icon: const Icon(Icons.play_arrow),
-            label: const Text(
-              "START FOCUS",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            backgroundColor: theme.colorScheme.primary,
+            foregroundColor: theme.colorScheme.onPrimary,
+            elevation: 4,
+            borderRadius: BorderRadius.circular(30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.play_arrow),
+                const SizedBox(width: 8),
+                const Text(
+                  "START FOCUS",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
         ),
@@ -89,20 +95,16 @@ class ExerciseSwiper extends StatelessWidget {
     // Content is always white on these darker backgrounds
     const Color contentColor = Colors.white;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(
-              alpha: 0.2,
-            ), // Slightly darker shadow
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
+    return SmoothContainer(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(32),
+      shadows: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.2), // Slightly darker shadow
+          blurRadius: 20,
+          offset: const Offset(0, 10),
+        ),
+      ],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
