@@ -4,7 +4,7 @@ import 'package:smooth_corner/smooth_corner.dart';
 class SmoothContainer extends StatelessWidget {
   final Widget? child;
   final double? width;
-  final double? height;
+  final double height;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final Color? color;
@@ -18,7 +18,7 @@ class SmoothContainer extends StatelessWidget {
     super.key,
     this.child,
     this.width,
-    this.height,
+    this.height = 55,
     this.padding,
     this.margin,
     this.color,

@@ -41,30 +41,38 @@ class ExerciseSwiper extends StatelessWidget {
                 },
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 50),
         // Custom Large Start Button
-        SizedBox(
-          width: 200,
-          height: 60,
-          child: SmoothButton(
-            onPressed: onStartFocus,
-            backgroundColor: theme.colorScheme.primary,
-            foregroundColor: theme.colorScheme.onPrimary,
-            elevation: 4,
-            borderRadius: BorderRadius.circular(30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.play_arrow),
-                const SizedBox(width: 8),
-                const Text(
-                  "START FOCUS",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: GestureDetector(
+            onTap: onStartFocus,
+            child: SmoothContainer(
+              // height: 64,
+              width: double.infinity,
+              color: AppColors.secondaryDark,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: AppColors.primary,
+                    size: 30,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    "Start Focus",
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+
         const SizedBox(height: 40),
       ],
     );
@@ -77,8 +85,8 @@ class ExerciseSwiper extends StatelessWidget {
       const Color.fromARGB(255, 46, 85, 68), // Deep Sage
       const Color.fromARGB(255, 0, 84, 38), // Sage Green
       const Color.fromARGB(255, 24, 30, 45), // Slate Grey
-      const Color.fromARGB(255, 73, 42, 31), // Brownish Grey
-      const Color.fromARGB(255, 194, 52, 0), // Cocoa
+      const Color.fromARGB(255, 73, 31, 52), // Brownish Grey
+      const Color.fromARGB(255, 152, 70, 40), // Cocoa
       const Color.fromARGB(255, 14, 34, 45), // Blue Grey
       const Color.fromARGB(255, 0, 57, 83), // Teal Grey
       const Color.fromARGB(255, 52, 24, 90), // Teal Grey
