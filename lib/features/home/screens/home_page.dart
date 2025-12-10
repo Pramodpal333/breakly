@@ -1,3 +1,5 @@
+import 'package:breakly/core/theme/app_colors.dart';
+import 'package:breakly/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -7,6 +9,8 @@ import '../../../core/services/audio_service.dart';
 import '../bloc/timer_bloc.dart';
 import '../bloc/timer_event.dart';
 import '../bloc/timer_state.dart';
+import '../../../core/widgets/smooth_container.dart';
+import '../../support/screens/support_me_screen.dart';
 import '../widgets/timer_circle.dart';
 import '../widgets/exercise_swiper.dart';
 import '../widgets/duration_slider.dart';
@@ -154,19 +158,46 @@ class HomeView extends StatelessWidget {
             ),
           ],
         ),
-        IconButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              backgroundColor: Colors.transparent,
-              isScrollControlled: true,
-              builder: (context) => const SettingsBottomSheet(),
-            );
-          },
-          icon: Icon(
-            Icons.settings_outlined,
-            color: theme.colorScheme.onSurface,
-          ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SmoothButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SupportMeScreen(),
+                  ),
+                );
+              },
+              backgroundColor: Colors.amber,
+              foregroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              borderRadius: BorderRadius.circular(12),
+              child: Text(
+                "Support Me",
+                style: AppTextStyles.labelSmall.medium.copyWith(
+                  color: AppColors.black,
+                ),
+              ),
+            ),
+            const Gap(12),
+            IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  barrierColor: Colors.black87,
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => const SettingsBottomSheet(),
+                  isScrollControlled: true,
+                );
+              },
+              icon: Icon(
+                Icons.settings_outlined,
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+          ],
         ),
       ],
     );

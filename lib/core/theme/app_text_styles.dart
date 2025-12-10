@@ -30,6 +30,12 @@ class AppTextStyles {
     fontSize: 28, // Material 3 default
   );
 
+  static const TextStyle titleLarge = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.bold,
+    fontSize: 22,
+  );
+
   static const TextStyle titleMedium = TextStyle(
     fontFamily: fontFamily,
     fontWeight: FontWeight.bold,

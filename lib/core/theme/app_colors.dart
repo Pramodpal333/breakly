@@ -15,6 +15,9 @@ class AppColors {
   static const Color white = Colors.white;
   static const Color black = Colors.black;
 
+  static const Color text = Colors.white;
+  static const Color textMuted = Colors.grey;
+
   static final Color primary = HexColor('#1E1E1E');
   static final Color error = HexColor('#b53333');
   static final Color error2 = HexColor('#541b1b');
