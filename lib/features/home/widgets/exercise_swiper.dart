@@ -47,10 +47,12 @@ class ExerciseSwiper extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: GestureDetector(
             onTap: onStartFocus,
-            child: SmoothContainer(
-              // height: 64,
-              width: double.infinity,
-              color: AppColors.secondaryDark,
+            child: SmoothButton(
+              onPressed: onStartFocus,
+              backgroundColor: theme.colorScheme.primary,
+              foregroundColor: theme.colorScheme.onPrimary,
+              elevation: 4,
+              borderRadius: BorderRadius.circular(16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -60,12 +62,9 @@ class ExerciseSwiper extends StatelessWidget {
                     size: 30,
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    "Start Focus",
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  const Text(
+                    "START FOCUS",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
