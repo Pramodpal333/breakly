@@ -80,7 +80,7 @@ class HomeView extends StatelessWidget {
                     )
                   else ...[
                     // const Spacer(),
-                    Gap(50),
+                    Gap(70),
                     // Main Timer Display
                     TimerCircle(
                       totalSeconds: (state.focusDurationMinutes * 60).toInt(),
