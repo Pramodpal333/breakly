@@ -3,6 +3,7 @@ import 'package:breakly/features/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import '../../../../core/widgets/common_alert_bottom_sheet.dart';
 import '../../../../core/widgets/smooth_container.dart';
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/services/preferences_service.dart';
@@ -153,13 +154,36 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                 _buildNavigationOption(
                   context,
                   title: 'Logout',
+
                   icon: Icons.logout,
                   onTap: () {
-                    sl<PreferencesService>().logout();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const OnboardingScreen(),
+                    showModalBottomSheet(
+                      barrierColor: Colors.black87,
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => CommonAlertBottomSheet(
+                        title: "Logout",
+                        subtitle:
+                            "Are you sure you want to log out? Your current session progress will be saved.",
+                        okayText: "Logout",
+                        isDestructive: true,
+                        icon: Icon(Icons.logout_rounded),
+                        onOkay: () {
+                          // Close the bottom sheet first
+                          Navigator.pop(context);
+
+                          // Perform logout
+                          sl<PreferencesService>().logout();
+
+                          // Navigate to onboarding
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const OnboardingScreen(),
+                            ),
+                            (route) => false,
+                          );
+                        },
                       ),
                     );
                   },

@@ -74,6 +74,7 @@ class SmoothButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double? elevation;
   final BorderRadiusGeometry borderRadius;
+  final BorderSide side;
 
   const SmoothButton({
     super.key,
@@ -84,6 +85,7 @@ class SmoothButton extends StatelessWidget {
     this.padding,
     this.elevation,
     this.borderRadius = const BorderRadius.all(Radius.circular(16.0)),
+    this.side = BorderSide.none,
   });
 
   @override
@@ -95,12 +97,17 @@ class SmoothButton extends StatelessWidget {
     return Material(
       color: bg,
       elevation: elevation ?? 0,
-      shape: SmoothRectangleBorder(borderRadius: borderRadius, smoothness: 1),
+      shape: SmoothRectangleBorder(
+        borderRadius: borderRadius,
+        smoothness: 1,
+        side: side,
+      ),
       child: InkWell(
         onTap: onPressed,
         customBorder: SmoothRectangleBorder(
           borderRadius: borderRadius,
           smoothness: 1,
+          side: side,
         ),
         child: Padding(
           padding:

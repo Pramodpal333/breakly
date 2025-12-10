@@ -1,3 +1,5 @@
+import 'package:breakly/core/theme/app_colors.dart';
+import 'package:breakly/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/smooth_container.dart';
@@ -146,13 +148,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           _currentPage == _numPages - 1
                               ? Icons.check
                               : Icons.arrow_forward,
+                          color: AppColors.primary,
                         ),
                         const SizedBox(width: 8),
                         Text(
                           _currentPage == _numPages - 1
                               ? "GET STARTED"
                               : "NEXT",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: AppTextStyles.bodyMedium.medium.copyWith(
+                            color: AppColors.primary,
+                          ),
                         ),
                       ],
                     ),
