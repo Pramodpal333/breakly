@@ -10,6 +10,7 @@ import '../widgets/timer_circle.dart';
 import '../widgets/exercise_swiper.dart';
 import '../widgets/duration_slider.dart';
 import '../widgets/control_buttons.dart';
+import '../widgets/settings_bottom_sheet.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -154,8 +155,11 @@ class HomeView extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Settings coming in v2!")),
+            showModalBottomSheet(
+              context: context,
+              backgroundColor: Colors.transparent,
+              isScrollControlled: true,
+              builder: (context) => const SettingsBottomSheet(),
             );
           },
           icon: Icon(

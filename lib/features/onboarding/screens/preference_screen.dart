@@ -4,7 +4,9 @@ import '../../../../core/services/preferences_service.dart';
 import '../../home/screens/home_page.dart';
 
 class PreferenceScreen extends StatefulWidget {
-  const PreferenceScreen({super.key});
+  final bool isEditMode;
+
+  const PreferenceScreen({super.key, this.isEditMode = false});
 
   @override
   State<PreferenceScreen> createState() => _PreferenceScreenState();
@@ -13,9 +15,24 @@ class PreferenceScreen extends StatefulWidget {
 class _PreferenceScreenState extends State<PreferenceScreen> {
   String _selectedLocation = 'office'; // Default selection
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isEditMode) {
+      _selectedLocation = sl<PreferencesService>().getLocationPreference();
+    }
+  }
+
   Future<void> _saveAndContinue() async {
     // Save preference
     await sl<PreferencesService>().setLocationPreference(_selectedLocation);
+
+    if (widget.isEditMode) {
+      if (!mounted) return;
+      Navigator.pop(context);
+      return;
+    }
+
     // Mark onboarding as complete mostly happens here effectively
     // But we already marked ONBOARDING skipped logic in previous screen if skipped
     // If we came from "Get Started", we should ensure onboarding is marked complete here too
@@ -34,6 +51,19 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: widget.isEditMode
+          ? AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: theme.colorScheme.onSurface,
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
+            )
+          : null,
       backgroundColor: theme.colorScheme.surface,
       body: SafeArea(
         child: Padding(
@@ -96,7 +126,7 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: const Text("SAVE & CONTINUE"),
+                child: Text(widget.isEditMode ? "SAVE" : "SAVE & CONTINUE"),
               ),
               const SizedBox(height: 20),
             ],

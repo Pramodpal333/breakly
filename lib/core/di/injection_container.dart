@@ -10,10 +10,11 @@ final sl = GetIt.instance;
 
 Future<void> setupLocator() async {
   // Services
-  sl.registerLazySingleton(() => AudioService());
-
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => PreferencesService(sharedPreferences));
+
+  // Services
+  sl.registerLazySingleton(() => AudioService(sl()));
 
   // BLoC
   sl.registerFactory(() => TimerBloc(ticker: sl(), preferencesService: sl()));
