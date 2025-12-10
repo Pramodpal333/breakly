@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import '../../../core/di/injection_container.dart';
+import '../../../core/services/version_service.dart';
 import '../../../core/services/audio_service.dart';
 import '../bloc/timer_bloc.dart';
 import '../bloc/timer_event.dart';
@@ -79,7 +80,7 @@ class HomeView extends StatelessWidget {
                     )
                   else ...[
                     // const Spacer(),
-                    Gap(70),
+                    Gap(50),
                     // Main Timer Display
                     TimerCircle(
                       totalSeconds: (state.focusDurationMinutes * 60).toInt(),
@@ -118,7 +119,7 @@ class HomeView extends StatelessWidget {
                       showReset: state.status != TimerStatus.initial,
                       primaryColor: primaryColor,
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
                   ],
                 ],
               ),

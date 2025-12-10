@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import '../../features/home/bloc/timer_bloc.dart';
 import '../utils/ticker.dart';
 import '../services/audio_service.dart';
+import '../services/version_service.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/preferences_service.dart';
@@ -15,6 +16,10 @@ Future<void> setupLocator() async {
 
   // Services
   sl.registerLazySingleton(() => AudioService(sl()));
+
+  final versionService = VersionService();
+  await versionService.init();
+  sl.registerSingleton<VersionService>(versionService);
 
   // BLoC
   sl.registerFactory(() => TimerBloc(ticker: sl(), preferencesService: sl()));

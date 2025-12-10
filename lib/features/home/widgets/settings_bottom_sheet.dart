@@ -1,4 +1,6 @@
+import 'package:breakly/core/services/version_service.dart';
 import 'package:breakly/core/theme/app_colors.dart';
+import 'package:breakly/core/theme/app_text_styles.dart';
 import 'package:breakly/features/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -189,6 +191,13 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                   },
                 ),
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 24),
+            child: Text(
+              sl<VersionService>().appVersion,
+              style: AppTextStyles.labelSmall.copyWith(color: Colors.white),
             ),
           ),
         ],

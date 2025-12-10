@@ -45,6 +45,11 @@ class AppTextStyles {
     fontFamily: fontFamily,
     fontSize: 14.0,
   );
+
+  static const TextStyle labelSmall = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 12.0,
+  );
 }
 
 extension TextStyleExtensions on TextStyle {
