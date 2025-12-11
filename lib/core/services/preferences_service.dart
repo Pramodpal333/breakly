@@ -59,11 +59,21 @@ class PreferencesService {
     await _prefs.setBool(_vibrateOnAlertKey, value);
   }
 
+  static const String _ringInSilentModeKey = 'ring_in_silent_mode';
+
   /// Checks if sound should be played on alert. Defaults to true.
   bool get playSoundOnAlert => _prefs.getBool(_playSoundOnAlertKey) ?? true;
 
   /// Sets the sound preference.
   Future<void> setPlaySoundOnAlert(bool value) async {
     await _prefs.setBool(_playSoundOnAlertKey, value);
+  }
+
+  /// Checks if ringtone should play even in silent mode. Defaults to false.
+  bool get ringInSilentMode => _prefs.getBool(_ringInSilentModeKey) ?? false;
+
+  /// Sets the silent mode override preference.
+  Future<void> setRingInSilentMode(bool value) async {
+    await _prefs.setBool(_ringInSilentModeKey, value);
   }
 }

@@ -23,6 +23,7 @@ class SettingsBottomSheet extends StatefulWidget {
 class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
   late bool _vibrateOnAlert;
   late bool _playSoundOnAlert;
+  late bool _ringInSilentMode;
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
     final prefs = sl<PreferencesService>();
     _vibrateOnAlert = prefs.vibrateOnAlert;
     _playSoundOnAlert = prefs.playSoundOnAlert;
+    _ringInSilentMode = prefs.ringInSilentMode;
   }
 
   @override
@@ -119,6 +121,19 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                         sl<PreferencesService>().setPlaySoundOnAlert(value);
                       },
                     ),
+                    if (_playSoundOnAlert) ...[
+                      _buildDivider(context),
+                      _buildSwitchOption(
+                        context,
+                        title: 'Ring in Silent Mode',
+                        icon: Icons.notifications_active_outlined,
+                        value: _ringInSilentMode,
+                        onChanged: (value) {
+                          setState(() => _ringInSilentMode = value);
+                          sl<PreferencesService>().setRingInSilentMode(value);
+                        },
+                      ),
+                    ],
                   ],
                 ),
 
