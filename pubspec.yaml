@@ -45,6 +45,7 @@ dependencies:
   smooth_corner: ^1.1.1
   flutter_svg: ^2.0.17
   package_info_plus: ^8.0.0
+  store_checker: ^1.8.0
 
 dev_dependencies:
   flutter_test:

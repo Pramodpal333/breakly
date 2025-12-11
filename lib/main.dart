@@ -5,6 +5,10 @@ import 'core/theme/app_theme.dart';
 import 'core/services/preferences_service.dart';
 import 'features/home/screens/home_page.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
+import 'features/security/screens/security_alert_screen.dart';
+
+import 'package:flutter/foundation.dart'; // For kDebugMode
+import 'package:store_checker/store_checker.dart';
 
 // ---------------------------------------------------------------------------
 // MAIN ENTRY POINT
@@ -13,6 +17,11 @@ import 'features/onboarding/screens/onboarding_screen.dart';
 Future<void> main() async {
   // Ensure widgets are bound before running
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Security Check: Verify Installer Source
+  // We don't exit here anymore. We pass the result to the app.
+  final isSecure = await _checkInstallerSource();
+
   // Initialize Dependency Injection
   await setupLocator();
 
@@ -22,7 +31,26 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const BreaklyApp());
+  runApp(BreaklyApp(isSecure: isSecure));
+}
+
+/// Checks if the app was installed from a valid store (Play Store or App Store).
+/// Returns true if valid or in debug mode. Returns false if unauthorized.
+Future<bool> _checkInstallerSource() async {
+  if (kDebugMode) {
+    // In debug mode, we allow running from any source (e.g., IDE, ADB).
+    return true;
+  }
+
+  final source = await StoreChecker.getSource;
+
+  // List of allowed sources
+  const allowedSources = [
+    Source.IS_INSTALLED_FROM_PLAY_STORE,
+    Source.IS_INSTALLED_FROM_APP_STORE,
+  ];
+
+  return allowedSources.contains(source);
 }
 
 // ---------------------------------------------------------------------------
@@ -30,7 +58,9 @@ Future<void> main() async {
 // ---------------------------------------------------------------------------
 
 class BreaklyApp extends StatelessWidget {
-  const BreaklyApp({super.key});
+  final bool isSecure;
+
+  const BreaklyApp({super.key, required this.isSecure});
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +70,17 @@ class BreaklyApp extends StatelessWidget {
       theme: AppTheme.darkTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: sl<PreferencesService>().isOnboardingCompleted
-          ? const HomePage()
-          : const OnboardingScreen(),
+      home: _getInitialScreen(),
     );
+  }
+
+  Widget _getInitialScreen() {
+    if (!isSecure) {
+      return const SecurityAlertScreen();
+    }
+
+    return sl<PreferencesService>().isOnboardingCompleted
+        ? const HomePage()
+        : const OnboardingScreen();
   }
 }
