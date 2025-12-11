@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+
 import '../../../core/di/injection_container.dart';
-import '../../../core/services/version_service.dart';
 import '../../../core/services/audio_service.dart';
+import '../../../core/utils/haptic_util.dart';
 import '../bloc/timer_bloc.dart';
 import '../bloc/timer_event.dart';
 import '../bloc/timer_state.dart';
-import '../widgets/timer_circle.dart';
-import '../widgets/exercise_swiper.dart';
-import '../widgets/duration_slider.dart';
 import '../widgets/control_buttons.dart';
+import '../widgets/duration_slider.dart';
+import '../widgets/exercise_swiper.dart';
 import '../widgets/settings_bottom_sheet.dart';
-import '../../../core/utils/haptic_util.dart';
+import '../widgets/timer_circle.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
