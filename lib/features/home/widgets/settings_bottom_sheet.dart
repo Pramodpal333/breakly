@@ -1,4 +1,5 @@
 import 'package:breakly/core/services/version_service.dart';
+import 'package:breakly/core/utils/haptic_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:store_checker/store_checker.dart';
 import 'package:breakly/core/theme/app_colors.dart';
@@ -72,7 +73,10 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    HapticUtil.feedback();
+                    Navigator.pop(context);
+                  },
                   icon: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -149,6 +153,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                       title: 'Work Mode',
                       icon: Icons.work_outline,
                       onTap: () {
+                        HapticUtil.feedback();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -176,6 +181,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
 
                   icon: Icons.logout,
                   onTap: () {
+                    HapticUtil.feedback();
                     showModalBottomSheet(
                       barrierColor: Colors.black87,
                       context: context,
@@ -339,7 +345,10 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
   }) {
     final theme = Theme.of(context);
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        HapticUtil.feedback();
+        onTap();
+      },
       borderRadius: BorderRadius.circular(20),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),

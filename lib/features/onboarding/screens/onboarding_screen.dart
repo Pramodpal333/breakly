@@ -1,6 +1,7 @@
 import 'package:breakly/core/theme/app_colors.dart';
 import 'package:breakly/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/utils/haptic_util.dart';
 
 import '../../../../core/widgets/smooth_container.dart';
 import 'preference_screen.dart';
@@ -98,7 +99,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 top: 16,
                 right: 24,
                 child: TextButton(
-                  onPressed: _completeOnboarding,
+                  onPressed: () {
+                    HapticUtil.feedback();
+                    _completeOnboarding();
+                  },
                   child: Text(
                     'Skip',
                     style: TextStyle(

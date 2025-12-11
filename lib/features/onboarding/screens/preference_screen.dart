@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/utils/haptic_util.dart';
 import '../../../../core/widgets/smooth_container.dart';
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/services/preferences_service.dart';
@@ -61,7 +62,10 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
                   Icons.arrow_back_ios_new_rounded,
                   color: theme.colorScheme.onSurface,
                 ),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  HapticUtil.feedback();
+                  Navigator.pop(context);
+                },
               ),
             )
           : null,
@@ -155,6 +159,7 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
 
     return GestureDetector(
       onTap: () {
+        HapticUtil.feedback();
         setState(() {
           _selectedLocation = value;
         });

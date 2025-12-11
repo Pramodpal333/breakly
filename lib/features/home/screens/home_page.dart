@@ -12,6 +12,7 @@ import '../widgets/exercise_swiper.dart';
 import '../widgets/duration_slider.dart';
 import '../widgets/control_buttons.dart';
 import '../widgets/settings_bottom_sheet.dart';
+import '../../../core/utils/haptic_util.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -156,6 +157,7 @@ class HomeView extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
+            HapticUtil.feedback();
             showModalBottomSheet(
               context: context,
               backgroundColor: Colors.transparent,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/utils/haptic_util.dart';
 import '../../../../core/widgets/smooth_container.dart';
 
 class ControlButtons extends StatelessWidget {
@@ -33,7 +34,10 @@ class ControlButtons extends StatelessWidget {
               elevation: 0,
               backgroundColor: theme.colorScheme.surfaceContainerHighest,
               foregroundColor: theme.colorScheme.onSurface,
-              onPressed: onReset,
+              onPressed: () {
+                HapticUtil.feedback();
+                onReset();
+              },
               shape: smoothShape(borderRadius: BorderRadius.circular(16)),
               child: const Icon(Icons.stop),
             ),
@@ -48,7 +52,10 @@ class ControlButtons extends StatelessWidget {
             elevation: 4,
             backgroundColor: primaryColor,
             foregroundColor: theme.colorScheme.onPrimary,
-            onPressed: onPlayPause,
+            onPressed: () {
+              HapticUtil.feedback();
+              onPlayPause();
+            },
             shape: smoothShape(borderRadius: BorderRadius.circular(30)),
             child: Icon(isRunning ? Icons.pause : Icons.play_arrow, size: 36),
           ),

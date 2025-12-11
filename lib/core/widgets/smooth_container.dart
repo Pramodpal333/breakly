@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import '../utils/haptic_util.dart';
 
 class SmoothContainer extends StatelessWidget {
   final Widget? child;
@@ -103,7 +104,12 @@ class SmoothButton extends StatelessWidget {
         side: side,
       ),
       child: InkWell(
-        onTap: onPressed,
+        onTap: onPressed == null
+            ? null
+            : () {
+                HapticUtil.feedback();
+                onPressed!();
+              },
         customBorder: SmoothRectangleBorder(
           borderRadius: borderRadius,
           smoothness: 1,
