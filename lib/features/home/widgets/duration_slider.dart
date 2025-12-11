@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/haptic_util.dart';
 
 class DurationSlider extends StatelessWidget {
   final double durationMinutes;
@@ -73,7 +74,20 @@ class DurationSlider extends StatelessWidget {
             max: 90,
             divisions: 89,
             label: "${durationMinutes.toInt()} min",
-            onChanged: isEnabled ? onChanged : null,
+            onChanged: isEnabled && onChanged != null
+                ? (value) {
+                    // Only trigger feedback if value effectively changes (integer change)
+                    // Haptic spam prevention is important.
+                    if (value.toInt() != durationMinutes.toInt()) {
+                      if (value.toInt() % 5 == 0) {
+                        HapticUtil.feedback(); // Heavier feedback for 5 min intervals
+                      } else {
+                        HapticUtil.lightFeedback(); // Light feedback for 1 min increments
+                      }
+                      onChanged!(value);
+                    }
+                  }
+                : null,
           ),
         ),
       ],

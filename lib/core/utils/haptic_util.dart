@@ -2,6 +2,13 @@ import 'package:flutter/services.dart';
 
 /// Utility for handling haptic feedback across the app.
 class HapticUtil {
+
+
+  /// Triggers a light impact haptic feedback.
+  static Future<void> lightFeedback() async {
+    await HapticFeedback.lightImpact();
+  }
+
   /// Triggers a light impact haptic feedback.
   static Future<void> feedback() async {
     await HapticFeedback.mediumImpact();
