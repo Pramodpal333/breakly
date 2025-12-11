@@ -28,12 +28,14 @@ class AudioService {
           ),
         );
       } else {
-        // Reset to default ambient/music behavior
+        // Reset to default behavior
+        // Use 'notification' usage type so it respects the system's ringer mode (Silent/Vibrate) on Android.
+        // 'media' usage type plays even in silent mode if media volume is up.
         await _player.setAudioContext(
           AudioContext(
             iOS: AudioContextIOS(category: AVAudioSessionCategory.ambient),
             android: AudioContextAndroid(
-              usageType: AndroidUsageType.media,
+              usageType: AndroidUsageType.notification,
               contentType: AndroidContentType.music,
               audioFocus: AndroidAudioFocus.gainTransient,
             ),
