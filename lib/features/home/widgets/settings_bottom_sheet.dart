@@ -1,4 +1,6 @@
 import 'package:breakly/core/services/version_service.dart';
+import 'package:flutter/foundation.dart';
+import 'package:store_checker/store_checker.dart';
 import 'package:breakly/core/theme/app_colors.dart';
 import 'package:breakly/core/theme/app_text_styles.dart';
 import 'package:breakly/features/onboarding/screens/onboarding_screen.dart';
@@ -195,9 +197,31 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 24),
-            child: Text(
-              sl<VersionService>().appVersion,
-              style: AppTextStyles.labelSmall.copyWith(color: Colors.white),
+            child: Column(
+              children: [
+                Text(
+                  sl<VersionService>().appVersion,
+                  style: AppTextStyles.labelSmall.copyWith(color: Colors.white),
+                ),
+                if (kDebugMode) ...[
+                  const Gap(4),
+                  FutureBuilder<Source>(
+                    future: StoreChecker.getSource,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          'Source: ${snapshot.data!.name}',
+                          style: AppTextStyles.labelSmall.copyWith(
+                            color: Colors.white54,
+                            fontSize: 10,
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ],
+              ],
             ),
           ),
         ],
