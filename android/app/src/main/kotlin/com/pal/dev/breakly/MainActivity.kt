@@ -1,4 +1,4 @@
-package com.example.breakly
+package com.pal.dev.breakly
 
 import io.flutter.embedding.android.FlutterActivity
 
