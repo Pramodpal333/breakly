@@ -14,16 +14,33 @@ import 'package:store_checker/store_checker.dart';
 // MAIN ENTRY POINT
 // ---------------------------------------------------------------------------
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'features/security/services/security_service.dart';
+
+// ---------------------------------------------------------------------------
+// MAIN ENTRY POINT
+// ---------------------------------------------------------------------------
+
 Future<void> main() async {
   // Ensure widgets are bound before running
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Security Check: Verify Installer Source
-  // We don't exit here anymore. We pass the result to the app.
-  final isSecure = await _checkInstallerSource();
+  // 1. Initialize Environment Variables
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint("Warning: .env file not found.");
+  }
 
-  // Initialize Dependency Injection
+  // 2. Initialize Dependency Injection
   await setupLocator();
+
+  // 3. Security: Installer Check (Pre-existing)
+  final isSecureInstaller = await _checkInstallerSource();
+
+  // 4. Security: FreeRASP Initialization
+  final securityService = SecurityService();
+  await securityService.init();
 
   // Lock orientation to portrait for MVP simplicity
   SystemChrome.setPreferredOrientations([
@@ -31,7 +48,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(BreaklyApp(isSecure: isSecure));
+  runApp(BreaklyApp(isSecure: isSecureInstaller));
 }
 
 /// Checks if the app was installed from a valid store (Play Store or App Store).

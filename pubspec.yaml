@@ -46,6 +46,8 @@ dependencies:
   flutter_svg: ^2.0.17
   package_info_plus: ^8.0.0
   store_checker: ^1.8.0
+  freerasp: ^7.3.0
+  flutter_dotenv: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +57,6 @@ dev_dependencies:
   flutter_gen_runner: ^5.12.0
   flutter_launcher_icons: ^0.14.4
   build_runner: ^2.10.4
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -71,6 +72,7 @@ flutter:
     - assets/audio/
     - assets/images/
     - assets/icons/
+    - .env
 
 flutter_gen:
   output: lib/gen/
